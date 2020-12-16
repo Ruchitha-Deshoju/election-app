@@ -1,0 +1,67 @@
+<div class="container">
+
+    <div class="card-container">
+        <label>POSITION NAME</label>
+        <select placeholder="Position" (change)="changePosition($event.target.value)">
+            <option>--Choose Position--</option>
+            <option *ngFor="let pos of positions; let i = index;" [value]="i">{{ pos.position_name }}</option>
+        </select>
+    </div>
+
+    <br>
+
+    <div class="card-container">
+        <label>PARTICIPANT NAME</label>
+        <select placeholder="Participant" (change)="changeParticipant($event.target.value)">
+            <option>--Choose Participant--</option>
+            <option *ngFor="let name of participants; let i = index;" [value]="i">{{ name.participant_name }}</option>
+        </select>
+    </div>
+ 
+</div>
+
+<!-- <form (ngSubmit)="getParticipant()" #f="ngForm">git
+    <div class="form-group">
+
+        <div *ngFor="let pos of positions; let i = index" >
+            <button class="button" (click)="show(i)">{{ pos.position_name }}</button>
+        <
+
+        <label for="selectParticipant">PARTICIPANT NAME</label>
+        <select id="selectParticipant" class="form-control" ngModel name="selectParticipant">
+            <option *ngFor="let name of userDetails; let i = index;" [value]="i">{{ name.participant_name }}</option>
+        </select>
+
+    </div>
+
+     <div class="form-group">
+        <label for="email">MAIL</label>
+        <input type="email" id="email" class="form-control" ngModel name="email" required email #email="ngModel">
+    </div>
+
+    <div class="form-group">
+        <label for="about">ABOUT</label>
+        <textarea name="about" id="about" rows="3" class="form-control" [(ngModel)]="about" required></textarea>
+    </div> -->
+
+    <!-- <div class="form-group">
+        <label for="supporters">SUPPORTERS</label>
+        <input type="text" id="supporters" class="form-control" [(ngModel)]="supporter_name" name="supporters">
+        <button type="button" (click)="addSupporter()">ADD</button>
+    </div>
+
+    <div class="form-group">
+        <label for="promises">PROMISES</label>
+        <input type="text" id="promises" class="form-control" [(ngModel)]="promises" name="promises">
+        <button type="button" (click)="addPromise()">ADD</button>
+    </div>
+
+    <div class="form-group">
+        <label for="achivements">ACHIVEMENTS</label>
+        <input type="text" id="achivements" class="form-control" [(ngModel)]="achivements" name="achivements">
+        <button type="button" (click)="addAchivement()">ADD</button>
+    </div> 
+
+    <button class="button" type="submit" [disabled]="!f.valid"> ADD </button>
+</form>
+ -->

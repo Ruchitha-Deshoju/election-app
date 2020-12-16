@@ -1,0 +1,18 @@
+
+<ul class="nav nav-tabs">
+    <li
+      role="presentation"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <a routerLink="/">Home</a>
+    </li>
+    <li role="presentation" routerLinkActive="active">
+      <a routerLink="/applications">Applications</a>
+    </li>
+    <li role="presentation" routerLinkActive="active">
+      <a [routerLink]="['/allpositions']">Positions</a>
+    </li>
+</ul>
+
+<router-outlet></router-outlet>

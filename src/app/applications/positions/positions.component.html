@@ -1,0 +1,9 @@
+<div>
+    <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div class="form-group">
+            <label for="positionName">Add Position</label>
+            <input type="text" id="positionName" class="form-control" ngModel name="positionName" required placeholder="--Add Position--">
+        </div>
+        <button class="button" type="submit" [disabled]="!f.valid">ADD</button>
+    </form>
+</div>

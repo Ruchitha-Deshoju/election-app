@@ -1,0 +1,16 @@
+
+<h1 >positions page</h1>
+
+<div *ngFor="let pos of positions; let i = index" >
+    <button class="button" (click)="show(i)">{{ pos.position_name }}</button>
+</div>
+
+<ul class="seleted_positions" *ngIf="selected">
+    <h3>{{ positions[curr_idx].position_name }} position paricipants</h3>
+    <li *ngFor="let user of userDetails; let i = index;">
+        <button class="button" (click)="showParticipantDetails(curr_idx, i)">{{ user.participant_name }}</button>
+    </li>
+</ul>
+
+
+<router-outlet></router-outlet>
