@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { applications_list } from '../models/applications.model';
-import { aboutDetails } from '../models/about-details.model' 
+import { aboutDetails } from '../models/about-details.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -39,6 +40,7 @@ export class PositionsServerService {
     this.positions[index].position_participants.push(this.obj);
     this.positionsUpdated.next([...this.positions])
     this.obj = {}
+
   }
 
 }

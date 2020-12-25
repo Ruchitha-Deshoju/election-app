@@ -10,7 +10,7 @@ import { AllPositionsComponent } from './all-positions/all-positions.component';
 import { PositionsParticipantsComponent } from './all-positions/positions-participants/positions-participants.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { EditParticipantsComponent } from './applications/edit-participants/edit-participants.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: '', component: HomePageComponent},
@@ -23,7 +23,8 @@ const appRoutes: Routes = [
   { path: 'allpositions', component: AllPositionsComponent,
           children: [
             { path: ':position_idx/:participant_idx', component: PositionsParticipantsComponent}
-          ]},
+          ]
+  },
 ]
 
 @NgModule({
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

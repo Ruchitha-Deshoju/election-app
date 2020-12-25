@@ -36,7 +36,8 @@ export class PositionsParticipantsComponent implements OnInit {
       this.participant = this.position.position_participants[+params['participant_idx']];
   })
 
-  console.log(this.position, this.participant)
+  // console.log(this.position, this.participant)
+  console.log(this.positions)
   this.Details = true;
   }
 

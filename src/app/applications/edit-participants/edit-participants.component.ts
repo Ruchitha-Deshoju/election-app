@@ -33,4 +33,5 @@ export class EditParticipantsComponent implements OnInit {
   changeParticipant(idx: number) {
     console.log(this.participants[idx].participant_name)
   }
+  
 }

@@ -1,0 +1,9 @@
+// mongoose.connect("mongodb+srv://ruchitha:GR6nzUnNATUrAyzn@campaign.zd87c.mongodb.net/node-angular?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true})
+// .then(() => {
+//     console.log('Connected to database')
+// })
+// .catch(() => {
+//     console.log("connection failed")
+// })
+
+// mongodb+srv://ruchitha:<password>@campaign.zd87c.mongodb.net/<dbname>?retryWrites=true&w=majority
