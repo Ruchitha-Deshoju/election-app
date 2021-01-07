@@ -23,5 +23,8 @@ export class ApplicationsComponent implements OnInit {
   editParticipants() {
     this.router.navigate(['editParticipant'], {relativeTo: this.route})
   }
+  deleteParticipants() {
+    // this.router.navigate(['deleteParticipant'], {relativeTo: this.route})
+  }
 
 }

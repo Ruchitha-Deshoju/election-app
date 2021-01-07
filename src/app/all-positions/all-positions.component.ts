@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PositionsServerService } from '../applications/positions-server.service';
-import { applications_list } from '../models/applications.model';
+import { positions_list } from '../models/positions.model'
 import { Subscription } from 'rxjs';
 import { aboutDetails } from '../models/about-details.model';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,41 +12,40 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AllPositionsComponent implements OnInit {
 
-  positions: applications_list[] = [];
+  positions: positions_list[] = [];
   userDetails: aboutDetails[] = [];
   private positionsSub: Subscription;
-  selected: boolean = false
-  curr_idx: number;
+  position_selected: boolean = false
+  position_idx: number;
+  participant_idx: number;
+  participant_details: aboutDetails
+  user_selected: boolean = false;
 
   constructor(private positionService: PositionsServerService,
     private router: Router, private route: ActivatedRoute) {}
   
 
   ngOnInit(): void {
-    this.positions = this.positionService.getPositions();
+    this.positionService.getPositions();
     this.positionsSub = this.positionService.getPositionsUpdatedListener()
-    .subscribe((positions: applications_list[]) => {
+    .subscribe((positions: positions_list[]) => {
       this.positions = positions
     })
   }
 
   show(idx: number) {
-    this.selected = true
-    this.curr_idx = idx
-    this.userDetails = this.positions[idx].position_participants;
+    this.position_selected = true
+    this.position_idx = idx
+    this.positionService.readPositionParticipants(this.positions[idx].position_name)
+    .subscribe((transformedData) => {
+      this.userDetails = transformedData
+    })    
   }
 
-  showParticipantDetails(position_idx: number, participant_idx: number) {
-    this.router.navigate([position_idx, participant_idx], {relativeTo: this.route})
+  showParticipantDetails(idx: number, user: aboutDetails) {
+    this.participant_idx = idx
+    this.user_selected = true
+    this.participant_details = user
   }
-
-  // this.snapshotParam = this.route.snapshot.paramMap.get("animal");
-
-  // // Subscribed
-  // this.route.paramMap.subscribe(params => {
-  //   this.subscribedParam = params.get("animal");
-  // });
-
-
-
 }
+

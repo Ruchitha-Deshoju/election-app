@@ -7,3 +7,6 @@
 // })
 
 // mongodb+srv://ruchitha:<password>@campaign.zd87c.mongodb.net/<dbname>?retryWrites=true&w=majority
+
+
+// mongod.exe --dbpath "D:/Stuff/Softwares/mongodb-data"

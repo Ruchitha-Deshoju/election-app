@@ -29,20 +29,12 @@ const Participants = mongoose.model('Participants', {
         about: {
             type: String, 
         },
-        myPromises: [{ type: String, maxlength: 3}],
-        myAchivements: [{ type: String, maxlength: 3 }],
-        mySupportes: [{ type: String, maxlength: 3 }],
+        myPromises: [{ type: String}],
+        myAchivements: [{ type: String}],
+        mySupportes: [{ type: String }],
      }]
 
 })
 
 module.exports = Participants
 
-
-
-// participant_name: String;
-//         email: String;
-//         about: String;
-//         supporters: string[];
-//         promises: string[];
-//         achivements: string[];

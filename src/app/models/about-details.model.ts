@@ -1,9 +1,12 @@
 export interface aboutDetails {
+        id: String,
         participant_name: String;
         email: String;
         about: String;
-        supporters: string[];
-        promises: string[];
-        achivements: string[];
+        myPromises: string[];
+        myAchivements: string[];
+        mySupportes: string[];
 }
+
+
 

@@ -14,9 +14,11 @@
         <label>PARTICIPANT NAME</label>
         <select placeholder="Participant" (change)="changeParticipant($event.target.value)">
             <option>--Choose Participant--</option>
-            <option *ngFor="let name of participants; let i = index;" [value]="i">{{ name.participant_name }}</option>
+            <option *ngFor="let user of userDetails; let i = index;" [value]="i">{{ user.participant_name }}</option>
         </select>
     </div>
+
+    <a class="button" [routerLink]="['/edit', position_id, participant_id]">EDIT PARTICIPANT</a>
  
 </div>
 

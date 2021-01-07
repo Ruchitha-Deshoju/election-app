@@ -4,7 +4,8 @@ const Participant = require('../models/participant-details')
 
 // Creating
 
-router.post('/participant', async (req, res) => {
+router.post('/participant',  async (req, res) => {
+    console.log(req.body)
     const position = req.body.position_name.toLowerCase()
     const details = req.body.participants_details
     try {
@@ -25,19 +26,41 @@ router.post('/participant', async (req, res) => {
 // Reading
 
 router.get('/participant/:position', async (req, res) => {
-    const _id = req.params.position
+    const postName = req.params.position
     try {
-        const users = await Participant.findById(_id)
+        const users = await Participant.find({ position_name : postName})
         if(!users) {
             return res.status(404).send({
                 message: "please enter a valid position"
             })
         }
-        res.send(users)
+        res.status(200).json({
+            message: "details fetched successfully",
+            details: users[0].participants_details,
+            position_id: users[0]._id
+        })
     } catch (e) {
         res.status(500).send()
     }
 })
+
+router.get('/participant/:name', async (req, res) => {
+    const postName = req.params.position
+    try {
+        const users = await Participant.find({ position_name : postName})
+        if(!users) {
+            return res.status(404).send({
+                message: "please enter a valid position"
+            })
+        }
+        res.status(200).json({
+            position_id: users[0]._id
+        })
+    } catch (e) {
+        res.status(500).send()
+    }
+})
+
 
 router.get('/participant/:position/:name', async (req, res) => {
     const _position = req.params.position

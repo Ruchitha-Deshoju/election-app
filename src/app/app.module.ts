@@ -10,6 +10,7 @@ import { AllPositionsComponent } from './all-positions/all-positions.component';
 import { PositionsParticipantsComponent } from './all-positions/positions-participants/positions-participants.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { EditParticipantsComponent } from './applications/edit-participants/edit-participants.component';
+import { DeleteParticipantsComponent } from './applications/delete-participants/delete-participants.component'
 import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
@@ -18,13 +19,15 @@ const appRoutes: Routes = [
           children: [
             {path: 'addPositions', component: PositionsComponent},
             {path: 'participants', component: ParticipantsComponent},
-            {path: 'editParticipant', component: EditParticipantsComponent}
+            {path: 'editParticipant', component: EditParticipantsComponent},
+            {path: 'deleteParticipant', component: DeleteParticipantsComponent}
           ]},
   { path: 'allpositions', component: AllPositionsComponent,
-          children: [
-            { path: ':position_idx/:participant_idx', component: PositionsParticipantsComponent}
-          ]
+          // children: [
+          //   { path: ':position_idx/:participant_idx', component: PositionsParticipantsComponent}
+          // ]
   },
+  {path: 'edit/:position/:name', component: ParticipantsComponent},
 ]
 
 @NgModule({
@@ -37,6 +40,7 @@ const appRoutes: Routes = [
     PositionsParticipantsComponent,
     HomePageComponent,
     EditParticipantsComponent,
+    DeleteParticipantsComponent
   ],
   imports: [
     BrowserModule,

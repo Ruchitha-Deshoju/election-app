@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NgForm } from '@angular/forms';
 import { PositionsServerService } from '../positions-server.service';
-import { applications_list } from '../../models/applications.model';
+import { positions_list } from '../../models/positions.model';
 import { aboutDetails } from 'src/app/models/about-details.model';
 
 @Component({
@@ -12,26 +11,35 @@ import { aboutDetails } from 'src/app/models/about-details.model';
 })
 export class EditParticipantsComponent implements OnInit {
 
-  positions: applications_list[] = [];
-  participants: aboutDetails[] = [];
+  positions: positions_list[] = [];
+  userDetails: aboutDetails[] = [];
   private positionsSub: Subscription;  
+  position_id: String;
+  participant_id: String;
+  participant_details: aboutDetails
 
   constructor(public positionService: PositionsServerService) { }
 
   ngOnInit(): void {
-    this.positions = this.positionService.getPositions();
+    this.positionService.getPositions();
     this.positionsSub = this.positionService.getPositionsUpdatedListener()
-    .subscribe((positions: applications_list[]) => {
+    .subscribe((positions: positions_list[]) => {
       this.positions = positions
     })
   }
 
   changePosition(idx: number) {
-    this.participants = this.positions[idx].position_participants;
+    this.positionService.readPositionParticipants(this.positions[idx].position_name)
+    .subscribe((transformedData) => {
+      this.userDetails = transformedData
+    })
+    this.positionService.getPositonId(this.positions[idx].position_name).subscribe(response => {
+      this.position_id = response.position_id
+    })  
   }
 
   changeParticipant(idx: number) {
-    console.log(this.participants[idx].participant_name)
+    this.participant_id = this.userDetails[idx].id
   }
   
 }

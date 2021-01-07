@@ -24,7 +24,7 @@ export class PositionsParticipantsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.positions = this.positionService.getPositions();
+    this.positionService.getPositions();
     this.positionsSub = this.positionService.getPositionsUpdatedListener()
     .subscribe((positions: applications_list[]) => {
       this.positions = positions
@@ -36,14 +36,9 @@ export class PositionsParticipantsComponent implements OnInit {
       this.participant = this.position.position_participants[+params['participant_idx']];
   })
 
-  // console.log(this.position, this.participant)
   console.log(this.positions)
   this.Details = true;
   }
-
-  // keys() : Array<string> {
-  //   return Object.keys(this.myDict);
-  // }
 
   keys() : Array<string> {
     return Object.keys(this.participant)

@@ -5,12 +5,22 @@
     <button class="button" (click)="show(i)">{{ pos.position_name }}</button>
 </div>
 
-<ul class="seleted_positions" *ngIf="selected">
-    <h3>{{ positions[curr_idx].position_name }} position paricipants</h3>
+<ul class="seleted_positions" *ngIf="position_selected">
+    <h3>{{ positions[position_idx].position_name }} position paricipants</h3>
     <li *ngFor="let user of userDetails; let i = index;">
-        <button class="button" (click)="showParticipantDetails(curr_idx, i)">{{ user.participant_name }}</button>
+        <button class="button" (click)="showParticipantDetails(i, user)">{{ user.participant_name }}</button>
     </li>
 </ul>
 
 
-<router-outlet></router-outlet>
+<ul *ngIf="user_selected">
+    <li> {{ participant_details.participant_name }}</li>
+    <li> {{ participant_details.email }}</li>
+    <li> {{ participant_details.about }}</li>
+    <li> {{ participant_details.mySupportes }}</li>
+    <li> {{ participant_details.myAchivements }}</li>
+    <li> {{ participant_details.myPromises }}</li>
+</ul>
+
+
+

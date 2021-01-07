@@ -2,7 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { PositionsServerService } from '../positions-server.service';
-import { applications_list } from '../../models/applications.model';
+import { positions_list } from '../../models/positions.model';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { aboutDetails } from '../../models/about-details.model'
+import { ConnectionStates } from 'mongoose';
 
 @Component({
   selector: 'app-participants',
@@ -10,33 +13,72 @@ import { applications_list } from '../../models/applications.model';
   styleUrls: ['./participants.component.css']
 })
 export class ParticipantsComponent implements OnInit {
+
   @ViewChild('f', { static: false }) addPositionNames: NgForm;
 
-  positions: applications_list[] = [];
+  positions: positions_list[] = [];
+  participant: aboutDetails;
   private positionsSub: Subscription;
+  private mode = 'create';
+  private position_id: String;
+  private participant_id: String;
   selected_index: number;
+
   supporter_name: string = '';
-  promises: string = '';
-  achivements: string = '';
   supporters_list: string[] = [];
-  achivements_list: string[] = [];
+
+  promises: string = '';
   promises_list: string[] = [];
+
+  achivements: string = '';
+  achivements_list: string[] = [];
+
   about: string = '';
+
   user = {
     participant_name: '',
     email: '',
     about: '',
-    supporters: [],
-    promises: [],
-    achivements: []
+    mySupportes: [],
+    myPromises: [],
+    myAchivements: [],
+    id: null,
   }
 
-  constructor(public positionService: PositionsServerService ) { }
+  constructor(public positionService: PositionsServerService, public route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.positions = this.positionService.getPositions();
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if(paramMap.has('position')) {
+        this.mode = 'edit'
+        this.position_id = paramMap.get('position')
+        this.participant_id = paramMap.get('name')
+        this.positionService.getParticipantDetails(this.position_id, this.participant_id).subscribe(responseData => {
+          const userList = Object.keys(responseData)
+          const userDetails = responseData
+          this.participant = { 
+            id: userDetails["_id"], 
+            participant_name: userDetails["participant_name"], 
+            email: userDetails["email"], 
+            about: userDetails["about"], 
+            myPromises: userDetails["myPromises"], 
+            myAchivements: userDetails["myAchivements"],
+            mySupportes: userDetails["mySupportes"]
+          }
+          // console.log(this.participant)
+          // console.log(userDetails)
+          // console.log(userDetails)
+          // console.log(userDetails["_id"])
+        })
+      } else {
+        this.mode = 'create'
+        this.position_id = null
+      }
+    })
+
+    this.positionService.getPositions();
     this.positionsSub = this.positionService.getPositionsUpdatedListener()
-    .subscribe((positions: applications_list[]) => {
+    .subscribe((positions: positions_list[]) => {
       this.positions = positions
     })
   }
@@ -68,9 +110,9 @@ export class ParticipantsComponent implements OnInit {
     this.user.participant_name = this.addPositionNames.value.participant_name;
     this.user.email = this.addPositionNames.value.email;
     this.user.about = this.addPositionNames.value.about;
-    this.user.achivements = [...this.achivements_list]
-    this.user.supporters = [...this.supporters_list]
-    this.user.promises = [...this.promises_list]
+    this.user.myAchivements = [...this.achivements_list]
+    this.user.mySupportes = [...this.supporters_list]
+    this.user.myPromises = [...this.promises_list]
     this.positionService.addParticipant(this.selected_index, this.user)
     this.addPositionNames.reset();
 
@@ -79,4 +121,5 @@ export class ParticipantsComponent implements OnInit {
     this.supporters_list = []
   }
 }
+
 
